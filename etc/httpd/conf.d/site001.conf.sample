@@ -1,0 +1,19 @@
+<VirtualHost *:80>
+  LogLevel info
+
+  Alias /static /home/demo/site001/static
+  <Directory /home/demo/site001/static>
+    Require all granted
+  </Directory>
+
+  <Directory /home/demo/site001/mysite>
+    <Files wsgi.py>
+      Require all granted
+    </Files>
+  </Directory>
+
+  WSGIDaemonProcess example.com python-path=/home/demo/site001 python-home=/home/demo/venv001
+  WSGIProcessGroup example.com
+  WSGIScriptAlias / /home/demo/site001/mysite/wsgi.py
+
+</VirtualHost>

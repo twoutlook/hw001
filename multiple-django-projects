@@ -1,0 +1,11 @@
+
+https://serverfault.com/questions/566517/running-multiple-django-projects-within-apache-sys-path-being-over-written
+
+
+```
+WSGIDaemonProcess project-2
+WSGIScriptAlias /suburl /some/path/project-2/wsgi.py process-group=project-2
+
+WSGIDaemonProcess project-1
+WSGIScriptAlias / /some/path/project-1/wsgi.py process-group=project-1
+```

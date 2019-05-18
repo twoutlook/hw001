@@ -1,0 +1,77 @@
+#https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-centos-7
+# 新建帳號 demo,赋予管理員權限
+# 安裝工具
+# 安裝 Apache2.4
+# 安裝 Python3.6
+# 使用 Python3.6 在 /home/demo 建虛擬環境 venv001
+# 在虛擬環境 venv001 使用 pip 安裝 Django2 和 mod_wsgi
+#
+
+# for DEBUG
+# apache 加入了 group demo
+# 要刪除 demo 前會報錯
+# 要先將 apache 退出 group demo
+usermod -G "" apache
+# 另外也遇到 Apache 在運行影響到
+systemctl stop httpd
+
+sudo groupdel demo
+sudo userdel demo
+
+
+
+sudo adduser demo
+sudo passwd demo
+#sudo usermod -a -G demo apache
+sudo usermod -a -G wheel demo
+
+
+
+
+sudo yum -y install tree
+sudo yum -y install nano
+
+sudo yum -y install httpd
+sudo yum -y  install httpd-devel
+sudo systemctl start httpd.service
+sudo systemctl enable httpd.service
+
+sudo yum -y update
+sudo yum -y install yum-utils
+sudo yum -y groupinstall development
+sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+sudo yum -y install python36u
+sudo yum -y install python36u-pip
+sudo yum -y install python36u-devel
+
+cat /etc/*release
+httpd -V
+python3.6 -V
+
+
+# 2018-6-16 11:00, by Mark,
+cd /home/demo
+python3.6 -m venv venv001
+source venv001/bin/activate
+pip install django
+pip install --upgrade pip
+pip install mod_wsgi
+
+deactivate
+cd ~
+cd a001
+
+python3.6 py001.py
+
+
+ rm -f /home/demo/s02-demo
+ rm -f /home/demo/py002.py
+cp s02-demo /home/demo/s02-demo
+cp py002.py /home/demo/py002.py
+chown demo:demo  /home/demo/s02-demo
+chown demo:demo  /home/demo/py002.py
+
+echo "接著請繼續操作︰"
+echo "    su demo"
+echo "    cd ~"
+echo "    source s02-demo"

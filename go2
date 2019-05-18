@@ -1,0 +1,9 @@
+source venv001/bin/activate
+cd site001
+git pull
+python manage.py migrate
+deactivate
+echo "going to exit, and become root again"
+echo "please cd ~, back to root's dir"
+echo "then, to source go3, to restart httpd"
+exit

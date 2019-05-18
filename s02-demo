@@ -1,0 +1,35 @@
+###
+#su demo  --- just stopped
+
+cd /home/demo
+sudo rm -fr site001
+
+source venv001/bin/activate
+
+django-admin startproject mysite
+sudo mv mysite site001
+site001/manage.py migrate
+python py002.py
+
+
+sudo usermod -a -G demo apache
+
+
+sudo chmod 710 /home/demo
+sudo chmod 664 /home/demo/site001/db.sqlite3
+
+sudo chown :apache /home/demo/site001
+sudo chown :apache /home/demo/site001/db.sqlite3
+
+
+site001/manage.py collectstatic
+site001/manage.py createsuperuser
+
+sudo systemctl stop httpd
+sudo systemctl restart httpd
+sudo systemctl status httpd
+
+
+
+
+#site001/manage.py runserver 0.0.0.0:8000
